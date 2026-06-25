@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn Planning · Jun–Sep 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f5f5f4;
+    --bg-tertiary: #f0ede8;
+    --text: #1a1a18;
+    --text-secondary: #6b6b67;
+    --text-tertiary: #9a9a96;
+    --border: rgba(0,0,0,0.12);
+    --border-secondary: rgba(0,0,0,0.22);
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --radius: 8px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg-secondary: #2a2a28;
+      --bg-tertiary: #323230;
+      --text: #f0ede8;
+      --text-secondary: #a8a8a4;
+      --text-tertiary: #6b6b67;
+      --border: rgba(255,255,255,0.1);
+      --border-secondary: rgba(255,255,255,0.2);
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-tertiary);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 0.5px solid var(--border);
+    padding: 24px 28px 32px;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  #painters { display: flex; gap: 4px; flex-wrap: wrap; }
+
+  .pb {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1.5px solid;
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 1.4;
+    background: transparent;
+    font-family: var(--font);
+    transition: opacity 0.1s;
+  }
+  .pb:hover { opacity: 0.8; }
+
+  #legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .scroll-wrap { overflow-x: auto; }
+
+  table {
+    border-collapse: collapse;
+    font-size: 12px;
+    min-width: 100%;
+  }
+
+  thead th {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 4px 2px 10px;
+    white-space: nowrap;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  tbody td { padding: 2px; vertical-align: top; }
+
+  .wcell { cursor: pointer; user-select: none; padding: 2px; vertical-align: top; }
+
+  .init-c {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .name-edit {
+    font-size: 12px;
+    color: var(--text);
+    cursor: text;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 1px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 140px;
+    display: block;
+    outline: none;
+  }
+  .name-edit:hover { border-color: var(--border-secondary); }
+  .name-edit:focus { border-color: var(--border-secondary); background: var(--bg-secondary); }
+
+  .del-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 1;
+    font-family: var(--font);
+  }
+  .del-btn:hover { color: #c0392b; }
+
+  .add-btn {
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 0.5px solid var(--border-secondary);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: var(--font);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .add-btn:hover { background: var(--bg-secondary); }
+
+  .summary-section {
+    margin-top: 24px;
+    border-top: 0.5px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .summary-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  #summary { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .pcard {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    text-align: center;
+    flex: 1;
+    min-width: 76px;
+    max-width: 100px;
+  }
+
+  #total-lbl {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 10px;
+  }
+
+  .sep-row td {
+    padding: 3px 0;
+    border-top: 0.5px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Learn planning · Jun–Sep 2026</h1>
+  <p class="subtitle">Select a person, then click or drag cells to assign them to weeks. Each cell stacks multiple engineers.</p>
+
+  <div class="toolbar">
+    <span class="toolbar-label">Painting as:</span>
+    <div id="painters"></div>
+    <div id="legend"></div>
+  </div>
+
+  <div class="scroll-wrap">
+    <table id="gt"></table>
+  </div>
+
+  <button class="add-btn" onclick="addRow()">
+    <i class="ti ti-plus" aria-hidden="true"></i> Add project
+  </button>
+
+  <div class="summary-section">
+    <div class="summary-title">SWE weeks per person</div>
+    <div id="summary"></div>
+    <div id="total-lbl"></div>
+  </div>
+</div>
+
+<script>
+const WK=[
+  {l:'W1',d:'Jun 24'},{l:'W2',d:'Jul 1'},{l:'W3',d:'Jul 8'},{l:'W4',d:'Jul 15'},
+  {l:'W5',d:'Jul 22'},{l:'W6',d:'Jul 29'},{l:'W7',d:'Aug 5'},{l:'W8',d:'Aug 12'},
+  {l:'W9',d:'Aug 19'},{l:'W10',d:'Aug 26'},{l:'W11',d:'Sep 2'},{l:'W12',d:'Sep 9'},
+];
+
+const TH={
+  'Infra':     {c:'#185FA5',b:'#E6F1FB'},
+  'Infra/Auth':{c:'#534AB7',b:'#EEEDFE'},
+  'Discover':  {c:'#3B6D11',b:'#EAF3DE'},
+  'Mission':   {c:'#993C1D',b:'#FAECE7'},
+  'Share':     {c:'#854F0B',b:'#FAEEDA'},
+};
+const TK=Object.keys(TH);
+
+const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',TBD:'#888780'};
+const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',TBD:'#F1EFE8'};
+const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',TBD:'?'};
+const PPL=Object.keys(PC);
+
+function e12(){return Array.from({length:12},()=>[])}
+
+let P=[
+  {n:'Run core Learn on HS infra',      t:'Infra',     w:[['Jin'],['Jin'],['Jin'],['Jin'],[],[],[],[],[],[],[],[]]},
+  {n:'Auth / identity integration',     t:'Infra/Auth',w:[['Shelly'],[],[],[],[],[],[],[],[],[],[],[]]},
+  {n:'Logged-in entry point (done)',    t:'Infra/Auth',w:[['Bharat'],[],[],[],[],[],[],[],[],[],[],[]], done:1},
+  {n:'API comms Core ↔ Learn',          t:'Infra',     w:[['Shelly','Jin'],['Shelly','Jin'],['Shelly','Jin'],['Jin'],[],[],[],[],[],[],[],[]]},
+  {n:'Logged-out landing page',         t:'Discover',  w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
+  {n:'Modify onboarding (logged-out)',  t:'Discover',  w:e12()},
+  {n:'Learn home page',                 t:'Discover',  w:[['Andrew'],['Andrew'],[],[],[],[],[],[],[],[],[],[]]},
+  {n:'Entry point from Learner Home',   t:'Discover',  w:e12()},
+  {n:'Transactional emails + notifs',   t:'Discover',  w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]]},
+  {n:'Unwind editor/exercises/coach',   t:'Mission',   w:[['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],[],[],[],[],[],[],[],[],[]]},
+  {n:'Multi-step missions scaffolding', t:'Mission',   w:[[],[],[],['Ruslan','Rahil'],['Ruslan','Rahil'],[],[],[],[],[],[],[]]},
+  {n:'Editor / async materials view',   t:'Mission',   w:[[],[],[],[],[],['Ruslan'],[],[],[],[],[],[]]},
+  {n:'AI submission + feedback',        t:'Mission',   w:[[],[],[],['Matin'],['Matin'],[],[],[],[],[],[],[]]},
+  {n:'AI instructor coach experience',  t:'Mission',   w:[[],[],[],[],['Jin','Rahil','Mark','Matin'],['Jin','Rahil','Mark','Matin'],['Mark','Rahil','Matin'],['Mark','Rahil','Matin'],[],[],[],[]]},
+  {n:'Content development',             t:'Mission',   w:e12()},
+  {n:'Publish step to profile',         t:'Share',     w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]]},
+  {n:'Project detail page',             t:'Share',     w:[[],[],[],[],[],[],[],['Shelly'],['Shelly'],[],[],[]]},
+  {n:'Upgraded project view',           t:'Share',     w:e12()},
+  {n:'AI badge for Missions',           t:'Share',     w:e12()},
+  {n:'AI Showcase support',             t:'Share',     w:e12()},
+];
+
+let pp='Rahil', drag=null, origW=null;
+
+function ic(person){
+  return `<div class="init-c" style="background:${PB[person]||'#eee'};color:${PC[person]||'#888'}" title="${person}">${PI[person]||'?'}</div>`;
+}
+
+function cellHTML(ri,wi){
+  const ppl=P[ri].w[wi];
+  if(!ppl.length) return `<div style="height:18px;border-radius:3px;border:0.5px solid var(--border);background:var(--bg-secondary)"></div>`;
+  return `<div style="display:flex;flex-direction:column;gap:1px;align-items:center">${ppl.map(ic).join('')}</div>`;
+}
+
+function renderTable(){
+  const t=document.getElementById('gt');
+  let h=`<thead><tr>`;
+  h+=`<th style="text-align:left;padding-left:2px;width:205px;min-width:205px">Project</th>`;
+  h+=`<th style="width:20px;min-width:20px"></th>`;
+  WK.forEach(w=>{
+    h+=`<th style="text-align:center;width:36px;min-width:36px">
+      <div>${w.l}</div>
+      <div style="font-size:9px;font-weight:400;color:var(--text-tertiary)">${w.d}</div>
+    </th>`;
+  });
+  h+=`</tr></thead><tbody>`;
+
+  let lastT=null;
+  P.forEach((p,ri)=>{
+    const th=TH[p.t]||TH['Infra'];
+    const c=th.c, b=th.b;
+    if(lastT&&lastT!==p.t){
+      h+=`<tr class="sep-row"><td colspan="${2+WK.length}"></td></tr>`;
+    }
+    lastT=p.t;
+    h+=`<tr data-ri="${ri}" style="opacity:${p.done?0.5:1}">`;
+    h+=`<td style="padding:3px 2px;vertical-align:middle">
+      <div style="display:flex;align-items:center;gap:4px">
+        <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${b};color:${c};flex-shrink:0;cursor:pointer;white-space:nowrap" onclick="cycleTheme(${ri})">${p.t}</span>
+        <span class="name-edit" contenteditable="true" data-ri="${ri}">${p.n}</span>
+      </div>
+    </td>`;
+    h+=`<td style="vertical-align:middle"><button class="del-btn" onclick="deleteRow(${ri})" title="Remove row"><i class="ti ti-x" aria-hidden="true"></i></button></td>`;
+    p.w.forEach((_,wi)=>{
+      h+=`<td class="wcell" data-ri="${ri}" data-wi="${wi}"><div class="ci">${cellHTML(ri,wi)}</div></td>`;
+    });
+    h+=`</tr>`;
+  });
+  h+=`</tbody>`;
+  t.innerHTML=h;
+
+  const tbody=t.querySelector('tbody');
+  tbody.addEventListener('mousedown',onMD);
+  tbody.addEventListener('mouseover',onMO);
+  t.querySelectorAll('.name-edit').forEach(el=>{
+    el.addEventListener('blur',()=>{const ri=+el.dataset.ri;if(P[ri])P[ri].n=el.textContent.trim()||P[ri].n});
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.blur()}});
+  });
+  renderSummary();
+}
+
+function refreshCell(ri,wi){
+  const el=document.querySelector(`.wcell[data-ri="${ri}"][data-wi="${wi}"] .ci`);
+  if(el) el.innerHTML=cellHTML(ri,wi);
+}
+
+function onMD(e){
+  const td=e.target.closest('.wcell');
+  if(!td)return;
+  e.preventDefault();
+  const ri=+td.dataset.ri,wi=+td.dataset.wi;
+  origW=P[ri].w.map(wk=>[...wk]);
+  const has=P[ri].w[wi].includes(pp);
+  drag={ri,s:wi,e:wi,v:has?'remove':'add'};
+  applyDrag();
+}
+function onMO(e){
+  if(!drag)return;
+  const td=e.target.closest('.wcell');
+  if(!td||+td.dataset.ri!==drag.ri)return;
+  drag.e=+td.dataset.wi;
+  applyDrag();
+}
+document.addEventListener('mouseup',()=>{drag=null;origW=null});
+
+function applyDrag(){
+  if(!drag)return;
+  P[drag.ri].w=origW.map(wk=>[...wk]);
+  const lo=Math.min(drag.s,drag.e),hi=Math.max(drag.s,drag.e);
+  for(let w=lo;w<=hi;w++){
+    const cell=P[drag.ri].w[w];
+    if(drag.v==='add'&&!cell.includes(pp)) cell.push(pp);
+    else if(drag.v==='remove'){const i=cell.indexOf(pp);if(i>=0)cell.splice(i,1)}
+  }
+  for(let w=0;w<WK.length;w++) refreshCell(drag.ri,w);
+  renderSummary();
+}
+
+function computeWks(){
+  const tot={};PPL.forEach(p=>tot[p]=0);
+  P.forEach(proj=>proj.w.forEach(wkPpl=>wkPpl.forEach(p=>{tot[p]=(tot[p]||0)+1})));
+  return tot;
+}
+
+function renderSummary(){
+  const tot=computeWks();
+  const active=PPL.filter(p=>p!=='TBD'&&tot[p]>0);
+  const grand=active.reduce((s,p)=>s+tot[p],0);
+  document.getElementById('summary').innerHTML=active.map(p=>{
+    const wks=tot[p],c=PC[p],b=PB[p];
+    const bar=Math.round(Math.min(100,wks/12*100));
+    return `<div class="pcard">
+      <div style="width:20px;height:20px;border-radius:50%;background:${b};color:${c};font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 5px">${PI[p]}</div>
+      <div style="font-size:11px;font-weight:500;color:var(--text);margin-bottom:2px">${p}</div>
+      <div style="font-size:22px;font-weight:500;color:${c};line-height:1.1">${wks}</div>
+      <div style="font-size:10px;color:var(--text-tertiary);margin-bottom:6px">wks</div>
+      <div style="height:4px;border-radius:2px;background:var(--border)">
+        <div style="height:100%;width:${bar}%;background:${c};border-radius:2px"></div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('total-lbl').textContent=`Total: ${grand} SWE weeks across ${active.length} engineers`;
+}
+
+function renderPainters(){
+  document.getElementById('painters').innerHTML=PPL.filter(p=>p!=='TBD').map(p=>{
+    const sel=p===pp,c=PC[p],b=PB[p];
+    return `<button class="pb" style="background:${sel?b:'transparent'};color:${sel?c:'var(--text-secondary)'};border-color:${sel?c:'var(--border-secondary)'}" onclick="setPainter('${p}')">${p}</button>`;
+  }).join('');
+}
+
+function setPainter(p){pp=p;renderPainters()}
+function cycleTheme(ri){P[ri].t=TK[(TK.indexOf(P[ri].t)+1)%TK.length];renderTable()}
+function deleteRow(ri){if(confirm('Remove this row?')){P.splice(ri,1);renderTable()}}
+function addRow(){P.push({n:'New project',t:'Discover',w:e12()});renderTable()}
+
+// Build legend
+const leg=document.getElementById('legend');
+Object.entries(TH).forEach(([name,{c}])=>{
+  const s=document.createElement('span');
+  s.className='legend-item';
+  s.innerHTML=`<span class="legend-dot" style="background:${c}"></span>${name}`;
+  leg.appendChild(s);
+});
+
+renderPainters();
+renderTable();
+</script>
+</body>
+</html>
