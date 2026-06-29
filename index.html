@@ -225,14 +225,40 @@
     padding: 3px 0;
     border-top: 0.5px solid var(--border);
   }
+
+  .edit-lock-btn {
+    background: none;
+    border: 0.5px solid var(--border-secondary);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: var(--font);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .edit-lock-btn:hover { background: var(--bg-secondary); }
+  body.view-mode .edit-only { display: none !important; }
+  body.view-mode .wcell { cursor: default; }
+  body.view-mode .name-edit { pointer-events: none; border-color: transparent !important; }
+  body.view-mode .theme-tag { pointer-events: none; cursor: default !important; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>Learn planning · Jun–Sep 2026</h1>
-  <p class="subtitle">Select a person, then click or drag cells to assign them to weeks. Each cell stacks multiple engineers.</p>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px">
+    <h1>Learn planning · Jun–Sep 2026</h1>
+    <button class="edit-lock-btn" id="edit-btn" onclick="toggleEdit()">
+      <i class="ti ti-lock" id="lock-icon" aria-hidden="true"></i>
+      <span id="edit-btn-lbl">Edit</span>
+    </button>
+  </div>
+  <p class="subtitle" id="subtitle-txt">View only — click Edit to make changes.</p>
 
-  <div class="toolbar">
+  <div class="toolbar edit-only">
     <span class="toolbar-label">Painting as:</span>
     <div id="painters"></div>
     <div id="legend"></div>
@@ -242,7 +268,7 @@
     <table id="gt"></table>
   </div>
 
-  <button class="add-btn" onclick="addRow()">
+  <button class="add-btn edit-only" onclick="addRow()">
     <i class="ti ti-plus" aria-hidden="true"></i> Add project
   </button>
 
@@ -299,7 +325,31 @@ let P=[
   {n:'Completion → courses on HS profile', t:'Share', w:[[],[],[],[],['Bharat'],[],[],[],[],[],[],[]]},
 ];
 
-let pp='Rahil', drag=null, origW=null;
+let pp='Rahil', drag=null, origW=null, editMode=false;
+const EDIT_PW='learn2026';
+
+function toggleEdit(){
+  if(editMode){
+    editMode=false;
+    document.body.classList.add('view-mode');
+    document.getElementById('lock-icon').className='ti ti-lock';
+    document.getElementById('edit-btn-lbl').textContent='Edit';
+    document.getElementById('subtitle-txt').textContent='View only — click Edit to make changes.';
+    renderTable();
+  } else {
+    const pw=prompt('Enter edit password:');
+    if(pw===EDIT_PW){
+      editMode=true;
+      document.body.classList.remove('view-mode');
+      document.getElementById('lock-icon').className='ti ti-lock-open';
+      document.getElementById('edit-btn-lbl').textContent='Lock';
+      document.getElementById('subtitle-txt').textContent='Select a person, then click or drag cells to assign them to weeks. Each cell stacks multiple engineers.';
+      renderTable();
+    } else if(pw!==null){
+      alert('Incorrect password.');
+    }
+  }
+}
 
 function ic(person){
   return `<div class="init-c" style="background:${PB[person]||'#eee'};color:${PC[person]||'#888'}" title="${person}">${PI[person]||'?'}</div>`;
@@ -335,11 +385,11 @@ function renderTable(){
     h+=`<tr data-ri="${ri}" style="opacity:${p.done?0.5:1}">`;
     h+=`<td style="padding:3px 2px;vertical-align:middle">
       <div style="display:flex;align-items:center;gap:4px">
-        <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${b};color:${c};flex-shrink:0;cursor:pointer;white-space:nowrap" onclick="cycleTheme(${ri})">${p.t}</span>
-        <span class="name-edit" contenteditable="true" data-ri="${ri}">${p.n}</span>
+        <span class="theme-tag" style="font-size:9px;padding:1px 5px;border-radius:3px;background:${b};color:${c};flex-shrink:0;cursor:pointer;white-space:nowrap" onclick="cycleTheme(${ri})">${p.t}</span>
+        <span class="name-edit" contenteditable="${editMode}" data-ri="${ri}">${p.n}</span>
       </div>
     </td>`;
-    h+=`<td style="vertical-align:middle"><button class="del-btn" onclick="deleteRow(${ri})" title="Remove row"><i class="ti ti-x" aria-hidden="true"></i></button></td>`;
+    h+=`<td class="edit-only" style="vertical-align:middle"><button class="del-btn" onclick="deleteRow(${ri})" title="Remove row"><i class="ti ti-x" aria-hidden="true"></i></button></td>`;
     p.w.forEach((_,wi)=>{
       h+=`<td class="wcell" data-ri="${ri}" data-wi="${wi}"><div class="ci">${cellHTML(ri,wi)}</div></td>`;
     });
@@ -364,6 +414,7 @@ function refreshCell(ri,wi){
 }
 
 function onMD(e){
+  if(!editMode)return;
   const td=e.target.closest('.wcell');
   if(!td)return;
   e.preventDefault();
@@ -442,6 +493,7 @@ Object.entries(TH).forEach(([name,{c}])=>{
   leg.appendChild(s);
 });
 
+document.body.classList.add('view-mode');
 renderPainters();
 renderTable();
 </script>
