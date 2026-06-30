@@ -326,29 +326,16 @@ let P=[
 ];
 
 let pp='Rahil', drag=null, origW=null, editMode=false;
-const EDIT_PW='learn2026';
 
 function toggleEdit(){
-  if(editMode){
-    editMode=false;
-    document.body.classList.add('view-mode');
-    document.getElementById('lock-icon').className='ti ti-lock';
-    document.getElementById('edit-btn-lbl').textContent='Edit';
-    document.getElementById('subtitle-txt').textContent='View only — click Edit to make changes.';
-    renderTable();
-  } else {
-    const pw=prompt('Enter edit password:');
-    if(pw===EDIT_PW){
-      editMode=true;
-      document.body.classList.remove('view-mode');
-      document.getElementById('lock-icon').className='ti ti-lock-open';
-      document.getElementById('edit-btn-lbl').textContent='Lock';
-      document.getElementById('subtitle-txt').textContent='Select a person, then click or drag cells to assign them to weeks. Each cell stacks multiple engineers.';
-      renderTable();
-    } else if(pw!==null){
-      alert('Incorrect password.');
-    }
-  }
+  editMode=!editMode;
+  document.body.classList.toggle('view-mode',!editMode);
+  document.getElementById('lock-icon').className=editMode?'ti ti-lock-open':'ti ti-lock';
+  document.getElementById('edit-btn-lbl').textContent=editMode?'Lock':'Edit';
+  document.getElementById('subtitle-txt').textContent=editMode
+    ?'Select a person, then click or drag cells to assign them to weeks. Each cell stacks multiple engineers.'
+    :'View only — click Edit to make changes.';
+  renderTable();
 }
 
 function ic(person){
@@ -365,7 +352,7 @@ function renderTable(){
   const t=document.getElementById('gt');
   let h=`<thead><tr>`;
   h+=`<th style="text-align:left;padding-left:2px;width:205px;min-width:205px">Project</th>`;
-  h+=`<th style="width:20px;min-width:20px"></th>`;
+  h+=`<th class="edit-only" style="width:20px;min-width:20px"></th>`;
   WK.forEach(w=>{
     h+=`<th style="text-align:center;width:36px;min-width:36px">
       <div>${w.l}</div>
