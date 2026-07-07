@@ -284,6 +284,7 @@ const WK=[
   {l:'W1',d:'Jun 24'},{l:'W2',d:'Jul 1'},{l:'W3',d:'Jul 8'},{l:'W4',d:'Jul 15'},
   {l:'W5',d:'Jul 22'},{l:'W6',d:'Jul 29'},{l:'W7',d:'Aug 5'},{l:'W8',d:'Aug 12'},
   {l:'W9',d:'Aug 19'},{l:'W10',d:'Aug 26'},{l:'W11',d:'Sep 2'},{l:'W12',d:'Sep 9'},
+  {l:'W13',d:'Sep 16'},{l:'W14',d:'Sep 23'},
 ];
 
 const TH={
@@ -294,12 +295,12 @@ const TH={
 };
 const TK=Object.keys(TH);
 
-const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',TBD:'#888780'};
-const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',TBD:'#F1EFE8'};
-const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',TBD:'?'};
-const PPL=Object.keys(PC);
+const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',Consumer:'#0F6EA0',Growth:'#1A7A40',TBD:'#888780'};
+const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',Consumer:'#DCF0FF',Growth:'#DCF5E8',TBD:'#F1EFE8'};
+const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',Consumer:'Co',Growth:'Gr',TBD:'?'};
+const PPL=['Rahil','Bharat','Matin','Jin','Shelly','Ruslan','Mark','Andrew','TBD'];
 
-function e12(){return Array.from({length:12},()=>[])}
+function e12(){return Array.from({length:WK.length},()=>[])}
 
 let P=[
   {n:'Run core Learn on HS infra',      t:'Infra',     w:[['Jin'],['Jin'],['Jin'],['Jin'],[],[],[],[],[],[],[],[]]},
@@ -310,9 +311,10 @@ let P=[
   {n:'Analytics / tracking + Datadog',  t:'Infra',     w:[[],[],[],[],['Andrew'],[],[],[],[],[],[],[]]},
   {n:'Logged-out landing page',         t:'Discover',  w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
   {n:'Modify onboarding (logged-out)',  t:'Discover',  w:e12()},
-  {n:'Learn home page',                 t:'Discover',  w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]]},
+  {n:'Learn home page',                 t:'Discover',  w:[[],[],['Andrew'],['Andrew'],['Consumer'],['Consumer'],['Consumer'],[],[],[],[],[]]},
   {n:'Entry point from Learner Home',   t:'Discover',  w:e12()},
   {n:'Transactional emails + notifs',   t:'Discover',  w:[['Andrew'],['Andrew'],[],[],[],[],[],[],[],[],[],[]]},
+  {n:'Onboarding streamlined + redirect-to-origin', t:'Discover', w:[[],[],[],[],[],[],[],[],[],['Growth'],[],[]]},
   {n:'Multi-step missions scaffolding', t:'Mission',   w:[[],[],[],['Ruslan'],['Ruslan','Rahil'],[],[],[],[],[],[],[]]},
   {n:'Editor / async materials view',   t:'Mission',   w:[[],[],[],[],[],['Ruslan'],[],[],[],[],[],[]]},
   {n:'AI submission + feedback',        t:'Mission',   w:[[],[],[],['Matin'],['Matin'],[],[],[],[],[],[],[]]},
@@ -321,10 +323,13 @@ let P=[
   {n:'Publish step to profile',         t:'Share',     w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]]},
   {n:'Project detail page',             t:'Share',     w:[[],[],[],[],[],[],[],['Shelly'],['Shelly'],[],[],[]]},
   {n:'Upgraded project view',           t:'Share',     w:e12()},
-  {n:'AI badge for Missions',           t:'Share',     w:[[],[],[],[],[],[],[],['Bharat'],[],[],[],[]]},
-  {n:'AI Showcase support',             t:'Share',     w:[[],[],[],[],[],['Bharat'],['Bharat'],[],[],[],[],[]]},
+  {n:'AI badge for Missions',           t:'Share',     w:[[],[],[],[],[],['Consumer'],[],['Bharat'],[],[],[],[]]},
+  {n:'AI Showcase support',             t:'Share',     w:[[],[],[],[],[],['Bharat'],['Bharat'],[],[],['Consumer'],['Consumer'],['Consumer'],['Consumer'],['Consumer']]},
   {n:'Completion → courses on HS profile', t:'Share', w:[[],[],[],[],['Bharat'],[],[],[],[],[],[],[]]},
+  {n:'Richer project on profile',          t:'Share', w:[[],[],[],[],[],[],[],[],[],[],['Consumer'],[]]},
+  {n:'Enriched project detail ↔ Learn Mission', t:'Share', w:e12()},
 ];
+P.forEach(p=>{const L=WK.length;while(p.w.length<L)p.w.push([])});
 
 let pp='Rahil', drag=null, origW=null, editMode=false;
 
