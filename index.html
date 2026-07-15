@@ -281,10 +281,13 @@
 
 <script>
 const WK=[
-  {l:'W1',d:'Jun 24'},{l:'W2',d:'Jul 1'},{l:'W3',d:'Jul 8'},{l:'W4',d:'Jul 15'},
-  {l:'W5',d:'Jul 22'},{l:'W6',d:'Jul 29'},{l:'W7',d:'Aug 5'},{l:'W8',d:'Aug 12'},
-  {l:'W9',d:'Aug 19'},{l:'W10',d:'Aug 26'},{l:'W11',d:'Sep 2'},{l:'W12',d:'Sep 9'},
-  {l:'W13',d:'Sep 16'},{l:'W14',d:'Sep 23'},
+  {l:'W1', d:'Jun 24',s:'2026-06-24'},{l:'W2', d:'Jul 1', s:'2026-07-01'},
+  {l:'W3', d:'Jul 8', s:'2026-07-08'},{l:'W4', d:'Jul 15',s:'2026-07-15'},
+  {l:'W5', d:'Jul 22',s:'2026-07-22'},{l:'W6', d:'Jul 29',s:'2026-07-29'},
+  {l:'W7', d:'Aug 5', s:'2026-08-05'},{l:'W8', d:'Aug 12',s:'2026-08-12'},
+  {l:'W9', d:'Aug 19',s:'2026-08-19'},{l:'W10',d:'Aug 26',s:'2026-08-26'},
+  {l:'W11',d:'Sep 2', s:'2026-09-02'},{l:'W12',d:'Sep 9', s:'2026-09-09'},
+  {l:'W13',d:'Sep 16',s:'2026-09-16'},{l:'W14',d:'Sep 23',s:'2026-09-23'},
 ];
 
 const TH={
@@ -310,7 +313,8 @@ let P=[
   {n:'Unwind editor/exercises/coach',   t:'Infra',     w:[['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],['Bharat','Ruslan'],[],[],[],[],[],[],[],[],[]]},
   {n:'Analytics / tracking + Datadog',  t:'Infra',     w:[[],[],[],[],['Andrew'],[],[],[],[],[],[],[]]},
   {n:'Logged-out landing page',         t:'Discover',  w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
-  {n:'Learn home page',                 t:'Discover',  w:[[],[],['Andrew'],['Andrew'],['Consumer'],['Consumer'],['Consumer'],[],[],[],[],[]]},
+  {n:'Learn home page',                 t:'Discover',  w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]]},
+  {n:'Learn home page – discovery entry point', t:'Discover', w:[[],[],[],[],['Consumer'],['Consumer'],['Consumer','Ruslan'],[],[],[],[],[]]},
   {n:'Transactional emails + notifs',   t:'Discover',  w:[['Andrew'],['Andrew'],[],[],[],[],[],[],[],[],[],[]]},
   {n:'Onboarding streamlined + redirect-to-origin', t:'Discover', w:[[],[],[],[],[],[],[],[],['Growth'],['Growth'],[],[]]},
   {n:'Multi-step missions scaffolding', t:'Mission',   w:[[],[],[],['Ruslan'],['Ruslan','Rahil'],[],[],[],[],[],[],[]]},
@@ -354,9 +358,16 @@ function renderTable(){
   let h=`<thead><tr>`;
   h+=`<th style="text-align:left;padding-left:2px;width:205px;min-width:205px">Project</th>`;
   h+=`<th class="edit-only" style="width:20px;min-width:20px"></th>`;
-  WK.forEach(w=>{
-    h+=`<th style="text-align:center;width:36px;min-width:36px">
-      <div>${w.l}</div>
+  const _now=new Date();
+  const currWI=WK.findIndex((w,i)=>{
+    const next=WK[i+1]?new Date(WK[i+1].s):new Date('2099-01-01');
+    return _now>=new Date(w.s)&&_now<next;
+  });
+  WK.forEach((w,wi)=>{
+    const cur=wi===currWI;
+    h+=`<th style="text-align:center;width:36px;min-width:36px;${cur?'border-bottom:2px solid #185FA5;':''}">
+      ${cur?`<div style="font-size:7px;font-weight:600;color:#185FA5;letter-spacing:0.07em;margin-bottom:1px">NOW</div>`:''}
+      <div style="${cur?'color:#185FA5;font-weight:600':''}"">${w.l}</div>
       <div style="font-size:9px;font-weight:400;color:var(--text-tertiary)">${w.d}</div>
     </th>`;
   });
