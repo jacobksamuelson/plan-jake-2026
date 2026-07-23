@@ -306,27 +306,28 @@ const PPL=['Rahil','Bharat','Matin','Jin','Shelly','Ruslan','Mark','Andrew','TBD
 function e12(){return Array.from({length:WK.length},()=>[])}
 
 let P=[
-  {n:'Run core Learn on HS infra',      t:'Infra',     w:[['Jin'],['Jin'],['Jin'],['Jin'],[],[],[],[],[],[],[],[]]},
-  {n:'Auth / identity integration',     t:'Infra',w:[['Shelly'],[],[],[],[],[],[],[],[],[],[],[]]},
-  {n:'Logged-in entry point (done)',    t:'Infra',w:[['Bharat'],[],[],[],[],[],[],[],[],[],[],[]], done:1},
-  {n:'API comms Core ↔ Learn',          t:'Infra',     w:[['Shelly','Jin'],['Shelly','Jin'],['Shelly','Jin'],[],[],[],[],[],[],[],[],[]]},
-  {n:'Unwind editor/exercises/coach',   t:'Infra',     w:[['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],['Bharat','Ruslan'],[],[],[],[],[],[],[],[],[]]},
-  {n:'Analytics / tracking + Datadog',  t:'Infra',     w:[[],[],[],[],['Andrew'],[],[],[],[],[],[],[]]},
-  {n:'Logged-out landing page',         t:'Discover',  w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
-  {n:'Learn home page',                 t:'Discover',  w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]]},
+  {n:'Run core Learn on HS infra',      t:'Infra',   w:[['Jin'],['Jin'],['Jin'],['Jin'],[],[],[],[],[],[],[],[]], done:1},
+  {n:'Auth / identity integration',     t:'Infra',   w:[['Shelly'],[],[],[],[],[],[],[],[],[],[],[]], done:1},
+  {n:'Logged-in entry point (done)',    t:'Infra',   w:[['Bharat'],[],[],[],[],[],[],[],[],[],[],[]], done:1},
+  {n:'API comms Core ↔ Learn',          t:'Infra',   w:[['Shelly','Jin'],['Shelly','Jin'],['Shelly','Jin'],[],[],[],[],[],[],[],[],[]], done:1},
+  {n:'Unwind editor/exercises/coach',   t:'Infra',   w:[['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],['Bharat','Ruslan'],[],[],[],[],[],[],[],[],[]], done:1},
+  {n:'Analytics / tracking + Datadog',  t:'Infra',   w:[[],[],[],[],['Andrew'],[],[],[],[],[],[],[]], done:1},
+  {n:'Logged-out landing page',         t:'Discover',w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
+  {n:'Learn home page foundations',     t:'Discover',w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]], done:1},
   {n:'Learn home page – discovery entry point', t:'Discover', w:[[],[],[],[],['Consumer'],['Consumer'],['Consumer','Ruslan'],[],[],[],[],[]]},
-  {n:'Transactional emails + notifs',   t:'Discover',  w:[['Andrew'],['Andrew'],[],[],[],[],[],[],[],[],[],[]]},
+  {n:'Email / notification setup',      t:'Discover',w:[['Andrew'],['Andrew'],[],[],[],[],[],[],[],[],[],[]], done:1},
   {n:'Onboarding streamlined + redirect-to-origin', t:'Discover', w:[[],[],[],[],[],[],[],[],['Growth'],['Growth'],[],[]]},
-  {n:'Multi-step missions scaffolding', t:'Mission',   w:[[],[],[],['Ruslan'],['Ruslan','Rahil'],[],[],[],[],[],[],[]]},
-  {n:'Editor / async materials view',   t:'Mission',   w:[[],[],[],['Bharat'],[],['Ruslan'],[],[],[],[],[],[]]},
-  {n:'AI submission + feedback',        t:'Mission',   w:[[],[],[],['Matin'],['Matin'],[],[],[],[],[],[],[]]},
-  {n:'AI instructor coach experience',  t:'Mission',   w:[[],['Rahil'],['Rahil'],[],['Jin','Rahil','Mark','Matin'],['Jin','Rahil','Mark','Matin'],['Mark','Rahil','Matin'],['Mark','Rahil','Matin'],[],[],[],[]]},
-  {n:'Publish step to profile',         t:'Share',     w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]]},
+  {n:'Multi-step missions scaffolding', t:'Mission', w:[[],[],[],['Ruslan'],['Ruslan','Rahil'],[],[],[],[],[],[],[]], ip:1},
+  {n:'Editor / async materials view',   t:'Mission', w:[[],[],[],['Bharat'],['Bharat'],['Ruslan','Bharat'],[],[],[],[],[],[]], ip:1},
+  {n:'AI submission + feedback',        t:'Mission', w:[[],[],[],[],['Matin'],['Matin'],[],[],[],[],[],[]], ip:1},
+  {n:'AI instructor coach experience',  t:'Mission', w:[[],['Rahil'],['Rahil'],[],['Jin','Rahil'],['Jin','Rahil'],['Rahil'],['Rahil'],[],[],[],[]], ip:1},
+  {n:'Coach experience with build phase', t:'Mission', w:[[],[],[],[],['Mark'],['Mark'],['Mark'],['Mark'],['Mark'],['Mark'],[],[]], ip:1},
+  {n:'Publish step to profile',         t:'Share',   w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]]},
   {n:'Enriched project detail ↔ Learn Mission', t:'Share', w:[[],[],[],[],[],[],[],['Shelly'],['Shelly'],[],[],[]]},
-  {n:'AI badge for Missions',           t:'Share',     w:[[],[],[],[],[],['Consumer'],[],['Bharat'],[],[],[],[]]},
-  {n:'AI Showcase support',             t:'Share',     w:[[],[],[],[],[],['Bharat'],['Bharat'],[],[],['Consumer'],['Consumer'],['Consumer'],['Consumer'],['Consumer']]},
-  {n:'Completion → courses on HS profile', t:'Share', w:[[],[],[],[],['Bharat'],[],[],[],[],[],[],[]]},
-  {n:'Richer project on profile',          t:'Share', w:[[],[],[],[],[],[],[],[],[],[],['Consumer'],[]]},
+  {n:'AI badge for Missions',           t:'Share',   w:[[],[],[],[],[],['Consumer'],[],['Bharat'],[],[],[],[]]},
+  {n:'AI Showcase support',             t:'Share',   w:[[],[],[],[],[],[],['Bharat'],['Bharat'],[],['Consumer'],['Consumer'],['Consumer'],['Consumer'],['Consumer']]},
+  {n:'Completion → courses on HS profile', t:'Share',w:[[],[],[],[],[],[],[],[],['Bharat'],[],[],[]]},
+  {n:'Richer project on profile',       t:'Share',   w:[[],[],[],[],[],[],[],[],[],[],['Consumer'],[]]},
 ];
 P.forEach(p=>{const L=WK.length;while(p.w.length<L)p.w.push([])});
 
@@ -381,10 +382,11 @@ function renderTable(){
       h+=`<tr class="sep-row"><td colspan="${2+WK.length}"></td></tr>`;
     }
     lastT=p.t;
-    h+=`<tr data-ri="${ri}" style="opacity:${p.done?0.5:1}">`;
+    h+=`<tr data-ri="${ri}" style="opacity:${p.done?0.45:1}">`;
     h+=`<td style="padding:3px 2px;vertical-align:middle">
       <div style="display:flex;align-items:center;gap:4px">
         <span class="theme-tag" style="font-size:9px;padding:1px 5px;border-radius:3px;background:${b};color:${c};flex-shrink:0;cursor:pointer;white-space:nowrap" onclick="cycleTheme(${ri})">${p.t}</span>
+        ${p.ip?`<span title="In progress" style="width:6px;height:6px;border-radius:50%;background:#e06c1a;flex-shrink:0;display:inline-block"></span>`:''}
         <span class="name-edit" contenteditable="${editMode}" data-ri="${ri}">${p.n}</span>
       </div>
     </td>`;
