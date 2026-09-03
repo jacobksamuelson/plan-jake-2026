@@ -288,6 +288,7 @@ const WK=[
   {l:'W9', d:'Aug 19',s:'2026-08-19'},{l:'W10',d:'Aug 26',s:'2026-08-26'},
   {l:'W11',d:'Sep 2', s:'2026-09-02'},{l:'W12',d:'Sep 9', s:'2026-09-09'},
   {l:'W13',d:'Sep 16',s:'2026-09-16'},{l:'W14',d:'Sep 23',s:'2026-09-23'},
+  {l:'W15',d:'Sep 30',s:'2026-09-30'},{l:'W16',d:'Oct 7', s:'2026-10-07'},
 ];
 
 const TH={
@@ -299,9 +300,9 @@ const TH={
 };
 const TK=Object.keys(TH);
 
-const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',Consumer:'#0F6EA0',Growth:'#1A7A40',iOS:'#4A1D96',TBD:'#888780'};
-const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',Consumer:'#DCF0FF',Growth:'#DCF5E8',iOS:'#EDE9FE',TBD:'#F1EFE8'};
-const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',Consumer:'Co',Growth:'Gr',iOS:'iO',TBD:'?'};
+const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',Consumer:'#0F6EA0',Growth:'#1A7A40',iOS:'#4A1D96',Core:'#0F7B6E',TBD:'#888780'};
+const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',Consumer:'#DCF0FF',Growth:'#DCF5E8',iOS:'#EDE9FE',Core:'#D1F5F0',TBD:'#F1EFE8'};
+const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',Consumer:'Co',Growth:'Gr',iOS:'iO',Core:'Cr',TBD:'?'};
 const PPL=['Rahil','Bharat','Matin','Jin','Shelly','Ruslan','Mark','Andrew','TBD'];
 
 function e12(){return Array.from({length:WK.length},()=>[])}
@@ -323,17 +324,18 @@ let P=[
   {n:'Editor / async materials view',   t:'Mission', w:[[],[],[],['Bharat'],['Bharat'],['Ruslan','Bharat'],[],[],[],[],[],[]], done:1},
   {n:'AI submission + feedback',        t:'Mission', w:[[],[],[],[],[],[],[],['Matin'],['Matin'],['Matin'],[],[]], done:1},
   {n:'AI instructor coach experience',  t:'Mission', w:[[],['Rahil'],['Rahil'],[],['Jin','Rahil'],['Jin','Rahil'],['Rahil'],['Rahil'],[],[],[],[]], done:1},
-  {n:'Coach experience with build phase', t:'Mission', w:[[],[],[],[],['Mark'],['Mark'],['Mark'],['Mark'],['Mark'],['Mark'],[],[]], ip:1},
+  {n:'Coach experience with build phase', t:'Mission', w:[[],[],[],[],['Mark'],['Mark'],['Mark'],[],[],[],[],[],[],['Mark']], ip:1},
   {n:'AI evals set up',                  t:'Mission', w:[[],[],[],[],[],[],['Mark'],['Mark'],['Mark'],[],[],[]], done:1},
   {n:'Publish step to profile',         t:'Share',   w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]], done:1},
-  {n:'Enriched project detail ↔ Learn Mission', t:'Share', w:[[],[],[],[],[],[],[],['Shelly'],['Shelly'],[],[],[]]},
+  {n:'Enriched project detail ↔ Learn Mission', t:'Share', w:[[],[],[],[],[],[],[],[],[],[],[],['Core'],['Core'],['Core']]},
   {n:'AI badge for Missions',           t:'Share',   w:[[],[],[],[],[],['Consumer'],[],['Bharat'],[],[],[],[]], done:1},
-  {n:'AI Showcase support',             t:'Share',   w:[[],[],[],[],[],[],['Bharat'],['Bharat'],[],['Consumer'],['Consumer'],['Consumer'],['Consumer'],['Consumer']]},
+  {n:'AI Showcase support',             t:'Share',   w:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],['Consumer'],['Consumer']]},
   {n:'Completion → courses on HS profile', t:'Share',w:[[],[],[],[],[],[],[],[],['Bharat'],[],[],[]], done:1},
   {n:'Richer project on profile',       t:'Share',   w:[[],[],[],[],[],[],[],[],[],[],['Consumer'],[]]},
   {n:'Mobile - optimized webviews',     t:'Mobile',  w:[[],[],[],[],[],[],['Ruslan'],['Ruslan'],[],[],[],[]], done:1},
   {n:'Mobile - catalog native (iOS) + coach native (Ruslan)', t:'Mobile', w:[[],[],[],[],[],[],[],[],[],['iOS','Ruslan'],['iOS','Ruslan'],[]]},
   {n:'Design first 6 email notifications', t:'Discover', w:[[],[],[],[],[],[],[],[],[],['Andrew'],[],[]], done:1},
+  {n:'Intl support — limited-access user entry points', t:'Discover', w:[[],[],[],[],[],[],[],[],[],[],[],[],['TBD']]},
 ];
 P.forEach(p=>{const L=WK.length;while(p.w.length<L)p.w.push([])});
 
