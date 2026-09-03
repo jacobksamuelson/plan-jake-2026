@@ -295,12 +295,13 @@ const TH={
   'Discover': {c:'#3B6D11',b:'#EAF3DE'},
   'Mission':  {c:'#993C1D',b:'#FAECE7'},
   'Share':    {c:'#854F0B',b:'#FAEEDA'},
+  'Mobile':   {c:'#4A1D96',b:'#EDE9FE'},
 };
 const TK=Object.keys(TH);
 
-const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',Consumer:'#0F6EA0',Growth:'#1A7A40',TBD:'#888780'};
-const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',Consumer:'#DCF0FF',Growth:'#DCF5E8',TBD:'#F1EFE8'};
-const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',Consumer:'Co',Growth:'Gr',TBD:'?'};
+const PC={Rahil:'#185FA5',Bharat:'#534AB7',Matin:'#3B6D11',Jin:'#854F0B',Shelly:'#993C1D',Ruslan:'#0F6E56',Mark:'#3C3489',Andrew:'#722B13',Consumer:'#0F6EA0',Growth:'#1A7A40',iOS:'#4A1D96',TBD:'#888780'};
+const PB={Rahil:'#E6F1FB',Bharat:'#EEEDFE',Matin:'#EAF3DE',Jin:'#FAEEDA',Shelly:'#FAECE7',Ruslan:'#E1F5EE',Mark:'#EEEDFE',Andrew:'#FAECE7',Consumer:'#DCF0FF',Growth:'#DCF5E8',iOS:'#EDE9FE',TBD:'#F1EFE8'};
+const PI={Rahil:'Ra',Bharat:'Bh',Matin:'Mt',Jin:'Jn',Shelly:'Sh',Ruslan:'Ru',Mark:'Mk',Andrew:'An',Consumer:'Co',Growth:'Gr',iOS:'iO',TBD:'?'};
 const PPL=['Rahil','Bharat','Matin','Jin','Shelly','Ruslan','Mark','Andrew','TBD'];
 
 function e12(){return Array.from({length:WK.length},()=>[])}
@@ -312,22 +313,27 @@ let P=[
   {n:'API comms Core ↔ Learn',          t:'Infra',   w:[['Shelly','Jin'],['Shelly','Jin'],['Shelly','Jin'],[],[],[],[],[],[],[],[],[]], done:1},
   {n:'Unwind editor/exercises/coach',   t:'Infra',   w:[['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],['Bharat','Ruslan'],[],[],[],[],[],[],[],[],[]], done:1},
   {n:'Analytics / tracking + Datadog',  t:'Infra',   w:[[],[],[],[],['Andrew'],[],[],[],[],[],[],[]], done:1},
+  {n:'Connect flow: support, Decagon, help center, tickets', t:'Infra', w:[[],[],[],[],['Shelly'],['Shelly'],[],[],[],[],[],[]], done:1},
   {n:'Logged-out landing page',         t:'Discover',w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
   {n:'Learn home page foundations',     t:'Discover',w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]], done:1},
   {n:'Learn home page – discovery entry point', t:'Discover', w:[[],[],[],[],['Consumer'],['Consumer'],['Consumer','Ruslan'],[],[],[],[],[]]},
   {n:'Email / notification setup',      t:'Discover',w:[['Andrew'],['Andrew'],[],[],[],[],[],[],[],[],[],[]], done:1},
   {n:'Onboarding streamlined + redirect-to-origin', t:'Discover', w:[[],[],[],[],[],[],[],[],['Growth'],['Growth'],[],[]]},
   {n:'Multi-step missions scaffolding', t:'Mission', w:[[],[],[],['Ruslan'],['Ruslan','Rahil'],[],[],[],[],[],[],[]], done:1},
-  {n:'Editor / async materials view',   t:'Mission', w:[[],[],[],['Bharat'],['Bharat'],['Ruslan','Bharat'],[],[],[],[],[],[]], ip:1},
+  {n:'Editor / async materials view',   t:'Mission', w:[[],[],[],['Bharat'],['Bharat'],['Ruslan','Bharat'],[],[],[],[],[],[]], done:1},
   {n:'AI submission + feedback',        t:'Mission', w:[[],[],[],[],['Matin'],['Matin'],[],[],[],[],[],[]], ip:1},
-  {n:'AI instructor coach experience',  t:'Mission', w:[[],['Rahil'],['Rahil'],[],['Jin','Rahil'],['Jin','Rahil'],['Rahil'],['Rahil'],[],[],[],[]], ip:1},
+  {n:'AI instructor coach experience',  t:'Mission', w:[[],['Rahil'],['Rahil'],[],['Jin','Rahil'],['Jin','Rahil'],['Rahil'],['Rahil'],[],[],[],[]], done:1},
   {n:'Coach experience with build phase', t:'Mission', w:[[],[],[],[],['Mark'],['Mark'],['Mark'],['Mark'],['Mark'],['Mark'],[],[]], ip:1},
-  {n:'Publish step to profile',         t:'Share',   w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]]},
+  {n:'AI Evals',                         t:'Mission', w:[[],[],[],[],[],[],['Mark'],['Mark'],['Mark'],[],[],[]]},
+  {n:'Publish step to profile',         t:'Share',   w:[[],[],[],[],['Shelly'],['Shelly'],['Shelly'],[],[],[],[],[]], done:1},
   {n:'Enriched project detail ↔ Learn Mission', t:'Share', w:[[],[],[],[],[],[],[],['Shelly'],['Shelly'],[],[],[]]},
-  {n:'AI badge for Missions',           t:'Share',   w:[[],[],[],[],[],['Consumer'],[],['Bharat'],[],[],[],[]]},
+  {n:'AI badge for Missions',           t:'Share',   w:[[],[],[],[],[],['Consumer'],[],['Bharat'],[],[],[],[]], done:1},
   {n:'AI Showcase support',             t:'Share',   w:[[],[],[],[],[],[],['Bharat'],['Bharat'],[],['Consumer'],['Consumer'],['Consumer'],['Consumer'],['Consumer']]},
-  {n:'Completion → courses on HS profile', t:'Share',w:[[],[],[],[],[],[],[],[],['Bharat'],[],[],[]]},
+  {n:'Completion → courses on HS profile', t:'Share',w:[[],[],[],[],[],[],[],[],['Bharat'],[],[],[]], done:1},
   {n:'Richer project on profile',       t:'Share',   w:[[],[],[],[],[],[],[],[],[],[],['Consumer'],[]]},
+  {n:'Mobile - optimized webviews',     t:'Mobile',  w:[[],[],[],[],[],[],['Ruslan'],['Ruslan'],[],[],[],[]], done:1},
+  {n:'Mobile - catalog native (iOS) + coach native (Ruslan)', t:'Mobile', w:[[],[],[],[],[],[],[],[],[],['iOS','Ruslan'],['iOS','Ruslan'],[]]},
+  {n:'Design first 6 email notifications', t:'Discover', w:[[],[],[],[],[],[],[],[],[],['Andrew'],[],[]]},
 ];
 P.forEach(p=>{const L=WK.length;while(p.w.length<L)p.w.push([])});
 
