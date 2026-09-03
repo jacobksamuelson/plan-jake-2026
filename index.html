@@ -435,7 +435,7 @@ function renderTable(){
     return _now>=new Date(w.s)&&_now<next;
   });
   let wh=`<div style="width:205px;min-width:205px;flex-shrink:0;font-size:11px;font-weight:500;color:var(--text-secondary);padding:4px 2px 8px;border-bottom:0.5px solid var(--border)">Project</div>`;
-  wh+=`<div class="edit-only" style="width:20px;min-width:20px;flex-shrink:0;border-bottom:0.5px solid var(--border)"></div>`;
+  if(editMode) wh+=`<div style="width:20px;min-width:20px;flex-shrink:0;border-bottom:0.5px solid var(--border)"></div>`;
   WK.forEach((w,wi)=>{
     const cur=wi===currWI;
     wh+=`<div style="width:36px;min-width:36px;flex-shrink:0;text-align:center;padding:4px 2px 8px;border-bottom:${cur?'2px solid #185FA5':'0.5px solid var(--border)'}">
@@ -449,8 +449,9 @@ function renderTable(){
   const ww=document.querySelector('.week-hdr-wrap');
   if(sw&&ww) sw.onscroll=()=>{ ww.scrollLeft=sw.scrollLeft; };
 
-  // Build table with colgroup (no thead)
-  let h=`<colgroup><col style="width:205px"><col class="edit-only" style="width:20px">`;
+  // Build table with colgroup (no thead) — edit col included only when visible
+  let h=`<colgroup><col style="width:205px">`;
+  if(editMode) h+=`<col style="width:20px">`;
   WK.forEach(()=>{ h+=`<col style="width:36px">`; });
   h+=`</colgroup><tbody>`;
 
