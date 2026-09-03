@@ -245,26 +245,68 @@
   body.view-mode .wcell { cursor: default; }
   body.view-mode .name-edit { pointer-events: none; border-color: transparent !important; }
   body.view-mode .theme-tag { pointer-events: none; cursor: default !important; }
+
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 20;
+    margin: -24px -28px 0;
+    padding: 20px 28px 12px;
+    border-bottom: 0.5px solid var(--border);
+    border-radius: 12px 12px 0 0;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .filter-bar-label {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-right: 2px;
+  }
+  .filter-btn {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-secondary);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.1s;
+  }
+  .filter-btn.on { background: var(--text); color: var(--bg); border-color: var(--text); }
 </style>
 </head>
 <body>
 <div class="container">
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px">
-    <h1>Learn planning · Jun–Sep 2026</h1>
-    <button class="edit-lock-btn" id="edit-btn" onclick="toggleEdit()">
-      <i class="ti ti-lock" id="lock-icon" aria-hidden="true"></i>
-      <span id="edit-btn-lbl">Edit</span>
-    </button>
+  <div class="sticky-header">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px">
+      <h1>Learn planning · Jun–Oct 2026</h1>
+      <button class="edit-lock-btn" id="edit-btn" onclick="toggleEdit()">
+        <i class="ti ti-lock" id="lock-icon" aria-hidden="true"></i>
+        <span id="edit-btn-lbl">Edit</span>
+      </button>
+    </div>
+    <p class="subtitle" id="subtitle-txt">View only — click Edit to make changes.</p>
+    <div class="toolbar edit-only">
+      <span class="toolbar-label">Painting as:</span>
+      <div id="painters"></div>
+      <div id="legend"></div>
+    </div>
+    <div class="filter-bar">
+      <span class="filter-bar-label">Show:</span>
+      <button class="filter-btn on" id="fb-all"    onclick="setFilter('all')">All</button>
+      <button class="filter-btn"    id="fb-active" onclick="setFilter('active')">Active</button>
+      <button class="filter-btn"    id="fb-done"   onclick="setFilter('done')">Done</button>
+    </div>
   </div>
-  <p class="subtitle" id="subtitle-txt">View only — click Edit to make changes.</p>
 
-  <div class="toolbar edit-only">
-    <span class="toolbar-label">Painting as:</span>
-    <div id="painters"></div>
-    <div id="legend"></div>
-  </div>
-
-  <div class="scroll-wrap">
+  <div class="scroll-wrap" style="margin-top:14px">
     <table id="gt"></table>
   </div>
 
@@ -314,7 +356,9 @@ let P=[
   {n:'API comms Core ↔ Learn',          t:'Infra',   w:[['Shelly','Jin'],['Shelly','Jin'],['Shelly','Jin'],[],[],[],[],[],[],[],[],[]], done:1},
   {n:'Unwind editor/exercises/coach',   t:'Infra',   w:[['Bharat','Ruslan','Rahil'],['Bharat','Ruslan','Rahil'],['Bharat','Ruslan'],[],[],[],[],[],[],[],[],[]], done:1},
   {n:'Analytics / tracking + Datadog',  t:'Infra',   w:[[],[],[],[],['Andrew'],[],[],[],[],[],[],[]], done:1},
-  {n:'Connect flow: support, Decagon, help center, tickets', t:'Infra', w:[[],[],[],[],['Shelly'],['Shelly'],[],[],[],[],[],[]], done:1},
+  {n:'Support: connect flow with decagon, help center, ticketing', t:'Infra', w:[[],[],[],[],[],[],[],[],[],['Shelly'],['Shelly'],[]], done:1},
+  {n:'Accessibility first pass', t:'Infra', w:[[],[],[],[],[],[],[],[],[],['Shelly'],[],[]], done:1},
+  {n:'Observability', t:'Infra', w:[[],[],[],[],[],[],[],[],[],[],['Matin'],['Matin']]},
   {n:'Logged-out landing page',         t:'Discover',w:[[],[],[],[],[],['Andrew'],['Andrew'],[],[],[],[],[]]},
   {n:'Learn home page foundations',     t:'Discover',w:[[],[],['Andrew'],['Andrew'],[],[],[],[],[],[],[],[]], done:1},
   {n:'Learn home page – discovery entry point', t:'Discover', w:[[],[],[],[],['Consumer'],['Consumer'],['Consumer','Ruslan'],[],[],[],[],[]]},
@@ -332,14 +376,22 @@ let P=[
   {n:'AI Showcase support',             t:'Share',   w:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],['Consumer'],['Consumer']]},
   {n:'Completion → courses on HS profile', t:'Share',w:[[],[],[],[],[],[],[],[],['Bharat'],[],[],[]], done:1},
   {n:'Richer project on profile',       t:'Share',   w:[[],[],[],[],[],[],[],[],[],[],['Consumer'],[]]},
-  {n:'Mobile - optimized webviews',     t:'Mobile',  w:[[],[],[],[],[],[],['Ruslan'],['Ruslan'],[],[],[],[]], done:1},
-  {n:'Mobile - catalog native (iOS) + coach native (Ruslan)', t:'Mobile', w:[[],[],[],[],[],[],[],[],[],['iOS','Ruslan'],['iOS','Ruslan'],[]]},
+  {n:'Mobile - optimized webviews',     t:'Mobile',  w:[[],[],[],[],[],[],[],[],[],[],['Ruslan'],['Ruslan']], done:1},
+  {n:'Mobile - catalog native (iOS) + coach native (Ruslan)', t:'Mobile', w:[[],[],[],[],[],[],[],[],[],[],['iOS','Ruslan'],['iOS','Ruslan']]},
   {n:'Design first 6 email notifications', t:'Discover', w:[[],[],[],[],[],[],[],[],[],['Andrew'],[],[]], done:1},
-  {n:'Intl support — limited-access user entry points', t:'Discover', w:[[],[],[],[],[],[],[],[],[],[],[],[],['TBD']]},
+  {n:'Intl support — limited-access user entry points', t:'Discover', w:[[],[],[],[],[],[],[],[],[],[],[],[],['Growth']]},
 ];
 P.forEach(p=>{const L=WK.length;while(p.w.length<L)p.w.push([])});
 
-let pp='Rahil', drag=null, origW=null, editMode=false;
+let pp='Rahil', drag=null, origW=null, editMode=false, filterMode='all';
+
+function setFilter(mode){
+  filterMode=mode;
+  ['all','active','done'].forEach(m=>{
+    document.getElementById('fb-'+m).classList.toggle('on',m===mode);
+  });
+  renderTable();
+}
 
 function toggleEdit(){
   editMode=!editMode;
@@ -384,6 +436,8 @@ function renderTable(){
 
   let lastT=null;
   P.forEach((p,ri)=>{
+    if(filterMode==='active'&&p.done) return;
+    if(filterMode==='done'&&!p.done) return;
     const th=TH[p.t]||TH['Infra'];
     const c=th.c, b=th.b;
     if(lastT&&lastT!==p.t){
