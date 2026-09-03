@@ -133,6 +133,10 @@
     padding: 4px 2px 10px;
     white-space: nowrap;
     border-bottom: 0.5px solid var(--border);
+    position: sticky;
+    top: var(--header-h, 0px);
+    background: var(--bg);
+    z-index: 10;
   }
 
   tbody td { padding: 2px; vertical-align: top; }
@@ -393,6 +397,12 @@ function setFilter(mode){
   renderTable();
 }
 
+function syncHeaderHeight(){
+  const h=document.querySelector('.sticky-header');
+  if(h) document.documentElement.style.setProperty('--header-h',h.offsetHeight+'px');
+}
+window.addEventListener('resize',syncHeaderHeight);
+
 function toggleEdit(){
   editMode=!editMode;
   document.body.classList.toggle('view-mode',!editMode);
@@ -469,6 +479,7 @@ function renderTable(){
     el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.blur()}});
   });
   renderSummary();
+  requestAnimationFrame(syncHeaderHeight);
 }
 
 function refreshCell(ri,wi){
